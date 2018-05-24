@@ -1,0 +1,38 @@
+{
+  "version": "0.2.1",
+  "defaults": {},
+  "configurations": [
+    {
+      "type": "cppdbg",
+      "name": "boot_all.bin",
+      "project": "build\\bin\\ota1.bin",
+      "cwd": "${workspaceRoot}",
+      "program": "${workspaceRoot}\\build\\obj\\build.axf",
+      "MIMode": "gdb",
+      "externalConsole": true,
+      "inheritEnvironments": [
+        "gcc_arm"
+      ],
+      "miDebuggerPath": "C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Enterprise\\Linux\\gcc_arm\\bin\\arm-none-eabi-gdb.exe",
+      "setupCommands": [
+        {
+          "text": "-environment-cd ${workspaceRoot}/build/obj"
+        },
+        {
+          "text": "-file-exec-and-symbols build.axf",
+          "description": "load file",
+          "ignoreFailures": false
+        },
+        {
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
+      ],
+      "visualizerFile": "${debugInfo.linuxNatvisPath}",
+      "miDebuggerServerAddress": "localhost:2331"//,
+      //"debugServerPath": "C:\\Data\\JLink_V632a\\JLinkGDBServer.exe",
+      //"debugServerArgs": "-select USB -device Cortex-M4 -if SWD -speed 1000 -ir",
+      //"serverLaunchTimeout": 3000
+   }
+  ]
+}

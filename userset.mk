@@ -2,23 +2,27 @@
 # User defined
 #=============================================
 SDK_PATH = USDK/
-#GCC_PATH = d:/MCU/GNU_Tools_ARM_Embedded/6.2017-q1-update/bin/# + or set in PATH
-#----------------------------------
-# Set JTAG/SWD 
-#----------------------------------
-#FLASHER_TYPE = Jlink
-#FLASHER_TYPE = stlink-v2
-FLASHER_TYPE = cmsis-dap
-FLASHER_SPEED = 3500
-#----------------------------------
-# Tools Path
-#----------------------------------
+
 ifneq ($(shell uname), Linux)
+#============================================= 
+# Windows MinGW/MSYS
+#============================================= 
 PYTHON ?= C:/Python27/python
 OPENOCD ?= d:/MCU/OpenOCD/bin/openocd.exe
-JLINK_PATH ?= D:/MCU/SEGGER/JLink_V630g/
+JLINK_PATH ?= C:/Data/JLink_V632a/
 else
-PYTHON ?= python
+#============================================= 
+# WSL, Linux
+#============================================= 
+PYTHON ?= python3
 OPENOCD ?= /mnt/d/MCU/OpenOCD/bin/openocd.exe
-JLINK_PATH ?= /mnt/d/MCU/SEGGER/JLink_V630g/
+GCC_PATH ?=~/gcc-arm-none-eabi-7-2017-q4-major/bin/
+JLINK_PATH ?= /mnt/c/Data/JLink_V632a/
 endif
+
+#============================================= 
+# General
+#============================================= 
+# cmsis-dap \ stlink-v2 \ Jlink
+FLASHER_TYPE = Jlink
+FLASHER_SPEED = 3500

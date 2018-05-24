@@ -25,7 +25,7 @@ end
 ###############
 define FlasherLoad
 if $rtl8710_flasher_capacity == 0
- printf "initializing RTL8710 flasher\n"
+ printf "Initializing RTL8710 flasher\n"
  restore $arg0 binary $rtl8710_flasher_firmware_ptr 0 968
  monitor reset
  set $pc = $rtl8710_flasher_firmware_ptr
@@ -44,7 +44,7 @@ if $rtl8710_flasher_capacity == 0
  end
  printf "RTL8710 flasher initialized\n"
 else
-printf "reinitializing RTL8710 flasher\n"
+printf "Reinitializing RTL8710 flasher\n"
 end
 end
 ##################
@@ -133,8 +133,8 @@ while $offset < $size
 end
 end
 #########################################
-source -v flasher/gdb_flasher.jlink
-source -v flasher/flash_file.jlink
+source -v USDK/flasher/gdb_flasher.jlink
+source -v USDK/flasher/flash_file.jlink
 InitJlink
 SystemInit
 SetClk166MHz

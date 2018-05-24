@@ -3,21 +3,16 @@
 include userset.mk
 include $(SDK_PATH)paths.mk
 include project.mk
+
 #---------------------------
 # Default
 #---------------------------
-FLASHER_TYPE ?= Jlink
 FLASHER_PATH ?= $(SDK_PATH)flasher/
-FLASHER_SPEED ?= 1000 # Start speed 1000 kHz
 #---------------------------
 # Make bunary tools
 IMAGETOOL ?= $(PYTHON) $(SDK_PATH)rtlaimage.py
 #---------------------------
-# openocd tools
-OPENOCD ?= d:/MCU/OpenOCD/bin/openocd.exe
-#---------------------------
 # jlink tools
-JLINK_PATH ?= D:/MCU/SEGGER/JLink_V612i/
 JLINK_EXE ?= JLink.exe
 JLINK_GDB ?= JLinkGDBServer.exe
 
@@ -86,21 +81,21 @@ readfullflash:
 
 flash_boot:
 	@echo define call1>$(FLASHER_PATH)file_info.jlink
-	@echo set '$$'ImageSize = $(shell printf '0x%X\n' $$(stat --printf="%s" $(RAM1P_IMAGE))>>$(FLASHER_PATH)file_info.jlink
+	@echo set '$$'ImageSize = $(shell printf '0x%X\n' $$(stat --printf="%s" $(RAM1P_IMAGE)))>>$(FLASHER_PATH)file_info.jlink
 	@echo set '$$'ImageAddr = 0x000000>>$(FLASHER_PATH)file_info.jlink
 	@echo end>>$(FLASHER_PATH)file_info.jlink
 	@echo define call2>>$(FLASHER_PATH)file_info.jlink
 	@echo FlasherWrite $(RAM2P_IMAGE) '$$'ImageAddr '$$'ImageSize>>$(FLASHER_PATH)file_info.jlink
 	@echo end>>$(FLASHER_PATH)file_info.jlink
-	@cmd /K start $(JLINK_PATH)$(JLINK_GDBSRV) -device Cortex-M3 -if SWD -ir -endian little -speed $(FLASHER_SPEED) 
+#	@cmd /K start $(JLINK_PATH)$(JLINK_GDBSRV) -device Cortex-M3 -if SWD -ir -endian little -speed $(FLASHER_SPEED) 
 	@$(GDB) -x $(FLASHER_PATH)gdb_wrfile.jlink
 
 flash_images:
-	@cmd /K start $(JLINK_PATH)$(JLINK_GDBSRV) -device Cortex-M3 -if SWD -ir -endian little -speed $(FLASHER_SPEED)
+#	@cmd /K start $(JLINK_PATH)$(JLINK_GDBSRV) -device Cortex-M3 -if SWD -ir -endian little -speed $(FLASHER_SPEED)
 	@$(GDB) -x $(FLASHER_PATH)gdb_images.jlink
 
 flash_OTA:
-	@cmd /K start $(JLINK_PATH)$(JLINK_GDBSRV) -device Cortex-M3 -if SWD -ir -endian little -speed $(FLASHER_SPEED)
+#	@cmd /K start $(JLINK_PATH)$(JLINK_GDBSRV) -device Cortex-M3 -if SWD -ir -endian little -speed $(FLASHER_SPEED)
 	@$(GDB) -x $(FLASHER_PATH)gdb_ota.jlink
 
 flash_webfs:
@@ -111,7 +106,7 @@ flash_webfs:
 	@echo define call2>>$(FLASHER_PATH)file_info.jlink
 	@echo FlasherWrite $(BIN_DIR)/WEBFiles.bin '$$'ImageAddr '$$'ImageSize>>$(FLASHER_PATH)file_info.jlink
 	@echo end>>$(FLASHER_PATH)file_info.jlink
-	@cmd /K start $(JLINK_PATH)$(JLINK_GDBSRV) -device Cortex-M3 -if SWD -ir -endian little -speed $(FLASHER_SPEED)
+#	@cmd /K start $(JLINK_PATH)$(JLINK_GDBSRV) -device Cortex-M3 -if SWD -ir -endian little -speed $(FLASHER_SPEED)
 	@$(GDB) -x $(FLASHER_PATH)gdb_wrfile.jlink
 
 flash_espfs:
@@ -122,7 +117,7 @@ flash_espfs:
 	@echo define call2>>$(FLASHER_PATH)file_info.jlink
 	@echo FlasherWrite $(BIN_DIR)/webpages.espfs '$$'ImageAddr '$$'ImageSize>>$(FLASHER_PATH)file_info.jlink
 	@echo end>>$(FLASHER_PATH)file_info.jlink
-	@cmd /K start $(JLINK_PATH)$(JLINK_GDBSRV) -device Cortex-M3 -if SWD -ir -endian little -speed $(FLASHER_SPEED) 
+#	@cmd /K start $(JLINK_PATH)$(JLINK_GDBSRV) -device Cortex-M3 -if SWD -ir -endian little -speed $(FLASHER_SPEED) 
 	@$(GDB) -x $(FLASHER_PATH)gdb_wrfile.jlink
 
 
@@ -136,9 +131,9 @@ flashburn:
 	@echo define call3>>$(FLASHER_PATH)flash_file.jlink
 	@echo FlasherWrite build/bin/ram_all.bin '$$'Image2Addr '$$'Image2Size>>$(FLASHER_PATH)flash_file.jlink
 	@echo end>>$(FLASHER_PATH)flash_file.jlink
-	@cmd /K start $(JLINK_PATH)$(JLINK_GDBSRV) -device Cortex-M3 -if SWD -ir -endian little -speed $(FLASHER_SPEED)
+#	@cmd /K start $(JLINK_PATH)$(JLINK_GDBSRV) -device Cortex-M3 -if SWD -ir -endian little -speed $(FLASHER_SPEED)
 	@$(GDB) -x $(FLASHER_PATH)gdb_wrflash.jlink
-	#@taskkill /F /IM $(JLINK_GDBSRV)
+#	@taskkill /F /IM $(JLINK_GDBSRV)
 
 else
 

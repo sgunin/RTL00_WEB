@@ -1,2 +1,9 @@
+#Build
 /AutoMake/
-/build/
+/build/obj/*
+!/build/obj/build.axf
+
+# Visual Studio
+/.vs/*
+!/.vs/tasks.vs.json
+!/.vs/launch.vs.json

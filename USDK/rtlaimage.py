@@ -202,7 +202,7 @@ class xFirmwareImage(object):
 				x = self.addr	
 				for s in imgsegs:
 					while x < s.addr:
-						self.data += '\0'
+						self.data += b"\x00"
 						x += 1
 					self.data += s.data
 #					print('Segment at 0x%08x,' % s.addr, 'size 0x%08x' % len(s.data), 'name', s.name, 'copy to image', self.fname)
@@ -227,7 +227,7 @@ class xFirmwareImage(object):
 							f.write(self.data)
 						f.close()
 			except:
-				print('Error: Not write file <%s>!' % self.fname)
+				print('Error <save>: Failed write to file %s' % self.fname)
 				sys.exit(-1)
 				
 	def save_ota(self, f, fn, chks):
@@ -240,27 +240,27 @@ class xFirmwareImage(object):
 					chks += byte(self.data, i)
 					i += 1
 			except:
-				print('Error: Not write file %s!' % fn)
+				print('Error <save_ota>: Failed write to file %s' % fn)
 				sys.exit(-1)
 		return chks
 	
 	def save_sram(self, f, fn):
 		if self.size:
-#			print('Segment at 0x%08x,' % self.addr, 'size 0x%08x' % self.size, 'save to %s' % fn)
+			print('Segment at 0x%08x,' % self.addr, 'size 0x%08x' % self.size, 'save to %s' % fn)
 			try:
 				if self.hm & HM_IS_BOOT:
 					gap = 0x0b000
 					i = len(self.data)  
 					if i > gap:
-						print('Error: Segment %s is big!' % self.name)
+						print('Error <save_sram>: Segment %s is big!' % self.name)
 					f.write(self.data)
 					while i < gap:
-						f.write('\xff')
+						f.write(b"\xff")
 						i += 1
 				else:
 					f.write(self.data)
 			except:
-				print('Error: Not write file %s!' % fn)
+				print('Error <save_sram>: Failed write to file %s' % fn)
 				sys.exit(-1)
 
 def elf2image(args):
@@ -299,7 +299,7 @@ def elf2image(args):
 				f.close()
 				
 		except:
-			print('Error: Not write file <%s>!' % fn)
+			print('Error <elf2image, ota>: Failed write to file %s' % fn)
 			sys.exit(-1)
 
 	if args.ram_all:
@@ -315,7 +315,7 @@ def elf2image(args):
 				f.close()
 				
 		except:
-			print('Error: Not write file <%s>!' % fn)
+			print('Error <elf2image, ram_all>: Failed write to file %s' % fn)
 			sys.exit(-1)
 
 	print('Images size: SRAM %u bytes, SDRAM %u bytes [%u]' % (img_sram_use, img_sdram_use, img_sram_use + img_sdram_use))

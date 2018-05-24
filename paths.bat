@@ -1,1 +1,1 @@
-PATH=D:\MCU\GNU_Tools_ARM_Embedded\7.2017-q4-major\bin;D:\MCU\SEGGER\JLink_V630g;D:\MCU\OpenOCD\bin;C:\MinGW\msys\1.0\bin;%PATH%
+PATH=D:\MCU\GNU_Tools_ARM_Embedded\7.2017-q4-major\bin;C:\Data\JLink_V632a;D:\MCU\OpenOCD\bin;C:\MinGW\msys\1.0\bin;%PATH%

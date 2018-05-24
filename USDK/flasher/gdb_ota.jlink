@@ -343,7 +343,7 @@ SPI_Init
 GetOtaSize build/bin/ota.bin
 if $ImageOtaSize != 0
  FlasherInit
- FlasherLoad flasher/rtl8710_flasher.bin
+ FlasherLoad USDK/flasher/rtl8710_flasher.bin
  set $FixOtaAddr = 0x80000
  set $pbuffer = $rtl8710_flasher_buffer + 0x20
  FlasherRdBlock 0x9000 0x1000
