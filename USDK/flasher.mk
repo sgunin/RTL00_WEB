@@ -36,8 +36,8 @@ mp: FLASH_IMAGE = $(BIN_DIR)/ram_all_mp.bin
 mp: OTA_IMAGE = $(BIN_DIR)/ota_mp.bin
 
 
-.PHONY: genbin flashburn reset test readfullflash flash_boot flash_webfs flash_OTA flash_images runram runsdram
-.NOTPARALLEL: all mp genbin flashburn reset test readfullflash _endgenbin flash_webfs flash_OTA flash_images
+.PHONY: genbin flash_burn reset test readfullflash flash_boot flash_webfs flash_OTA flash_images runram runsdram
+.NOTPARALLEL: all mp genbin flash_burn reset test readfullflash _endgenbin flash_webfs flash_OTA flash_images
 
 all: $(ELFFILE) $(FLASH_IMAGE) _endgenbin
 mp: $(ELFFILE) $(FLASH_IMAGE) _endgenbin
@@ -121,7 +121,7 @@ flash_espfs:
 	@$(GDB) -x $(FLASHER_PATH)gdb_wrfile.jlink
 
 
-flashburn:
+flash_burn:
 	@echo define call1>$(FLASHER_PATH)flash_file.jlink
 	@echo SetFirwareSize build/bin/ram_all.bin>>$(FLASHER_PATH)flash_file.jlink
 	@echo end>>$(FLASHER_PATH)flash_file.jlink
@@ -192,7 +192,7 @@ runsdram:
 	-c 'boot_load_srdam $(RAM3_IMAGE) 0x30000000' \
 	-c shutdown
 
-flashburn:
+flash_burn:
 	@$(OPENOCD) -f interface/$(FLASHER_TYPE).cfg -c 'transport select swd' -c 'adapter_khz 1000' \
 	-f $(FLASHER_PATH)rtl8710.ocd -c 'init' -c 'reset halt' -c 'adapter_khz $(FLASHER_SPEED)' \
 	-c 'rtl8710_flash_auto_erase 1' -c 'rtl8710_flash_auto_verify 1' \

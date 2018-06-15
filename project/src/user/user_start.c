@@ -67,7 +67,7 @@ void user_init_thrd(void) {
 	/* Read system config*/
 	if(syscfg.cfg.b.pin_clear_cfg_enable
 		&& 0) {  // user_test_clear_pin()
-		wifi_cfg.load_flg = 0;
+		wifi_cfg.load_flg = 0; 
 	}
 	else flash_read_cfg(&syscfg, FEEP_ID_SYS_CFG, sizeof(syscfg));
 

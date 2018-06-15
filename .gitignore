@@ -1,5 +1,4 @@
 #Build
-/AutoMake/
 /build/obj/*
 !/build/obj/build.axf
 

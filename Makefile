@@ -20,12 +20,15 @@ clean:
 clean_all:
 	@$(MAKE) -f $(SDK_PATH)sdkbuild.mk clean_all
 	
-.PHONY: flash_images runram reset test readfullflash flash_webfs flash_boot
+.PHONY: flash_images flash_burn runram reset test readfullflash flash_webfs flash_boot
 flash_boot:
 	@$(MAKE) -f $(SDK_PATH)flasher.mk flash_boot
 	
 flash_images:	
 	@$(MAKE) -f $(SDK_PATH)flasher.mk flash_images
+
+flash_burn:	
+	@$(MAKE) -f $(SDK_PATH)flasher.mk flash_burn
 
 flash_OTA:
 	@$(MAKE) -f $(SDK_PATH)flasher.mk flash_OTA

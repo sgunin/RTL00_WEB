@@ -185,7 +185,9 @@ extern HAL_GPIO_ADAPTER gBoot_Gpio_Adapter;
 	_pHAL_Gpio_Adapter = &gBoot_Gpio_Adapter;
 	VectorTableInitRtl8195A(STACK_TOP);	// 0x1FFFFFFC
 	loguart_wait_tx_fifo_empty(); //	иначе глючит LogUART, если переключение CLK приходится на вывод символов !
+#ifdef CONFIG_SDR_EN
 	uint8 ChipId = HalGetChipId();
+#endif
 #ifdef ARDUINO
 	// 0 - 166666666 Hz, 1 - 83333333 Hz
 	*((int *) (SYSTEM_CTRL_BASE + REG_SYS_SYSPLL_CTRL1)) &= ~(1 << 17); // REG_SYS_SYSPLL_CTRL1 &= ~BIT_SYS_SYSPLL_DIV5_3

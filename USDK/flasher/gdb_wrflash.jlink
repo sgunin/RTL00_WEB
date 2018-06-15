@@ -146,7 +146,7 @@ if $FirmwareSize == 0
  error "FirmwareSize = 0!"
 end
 FlasherInit
-FlasherLoad flasher/rtl8710_flasher.bin
+FlasherLoad USDK/flasher/rtl8710_flasher.bin
 if $Image1Size != 0
  printf "Write Image1 size %d to Flash addr 0x00000000:\n", $Image1Size
  #FlasherWrite $wr_flile 0 $Image1Size
